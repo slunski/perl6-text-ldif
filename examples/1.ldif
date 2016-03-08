@@ -1,0 +1,40 @@
+# Organization for Example Corporation
+dn: dc=example,dc=com
+objectClass: dcObject
+objectClass: organization
+dc: example
+o: Example Corporation
+description: The Example Corporation
+
+# Organizational Role for Directory Manager
+dn: cn=Manager,dc=example,dc=com
+objectClass: organizationalRole
+cn: Manager
+description: Directory Manager
+
+# Barbara's Entry
+dn: cn=Barbara J Jensen, dc=example, dc=com
+cn: Barbara J Jensen
+cn: Babs Jensen
+objectClass: person
+sn: Jensen
+
+# Bjorn's Entry
+dn: cn=Bjorn J Jensen, dc=example, dc=com
+cn: Bjorn J Jensen
+cn: Bjorn Jensen
+objectClass: person
+sn: Jensen
+# Base64 encoded JPEG photo
+jpegPhoto:: /9j/4AAQSkZJRgABAAAAAQABAAD/2wBDABALD
+ A4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQ
+ ERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVG
+
+# Jennifer's Entry
+dn: cn=Jennifer J Jensen, dc=example, dc=com
+cn: Jennifer J Jensen
+cn: Jennifer Jensen
+objectClass: person
+sn: Jensen
+# JPEG photo from file
+jpegPhoto:< file://path/to/file.jpeg
