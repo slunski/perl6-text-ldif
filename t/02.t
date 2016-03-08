@@ -12,5 +12,7 @@ my LDAP::Entry @es;
 my $a = Text::LDIF::Actions.new();
 
 #$l.parse( $txt, Text::LDIF::Actions );
-$l.parse( $txt, $a );
+say  $l.parse( $txt, $a ).ast.perl;
+
+say "--";
 
