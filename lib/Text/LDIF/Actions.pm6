@@ -5,10 +5,10 @@ class Text::LDIF::Actions {
 		make $<entry>>>.ast;
 	};
 	method entry($/) {
-		make { 
+		make {
 			dn => ~$<dn><avalue>,
-			attr => $<attr>.map(*.ast).list
-		}
+			attrs => $<attr>>>.ast
+			}
 	}
 	method attr($/) {
 		make ~$<aname> => $<value><avalue> ?? ~$<value><avalue> !!
