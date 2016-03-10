@@ -5,7 +5,7 @@ use Test;
 use Text::LDIF;
 
 # big .ldif file
-my $txt = slurp "examples/2c.ldif";
+my $txt = slurp "examples/2.ldif";
 
 plan(2);
 

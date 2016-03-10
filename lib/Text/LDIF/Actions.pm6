@@ -11,23 +11,26 @@ class Text::LDIF::Actions {
 			}
 	}
 	method attr($/) {
-		make ~$<aname> => $<value><avalue> ?? ~$<value><avalue> !!
-							$<value><bvalue> ?? ~$<value><bvalue> !! ~$<value><uvalue>
+		#make ~$<aname> => $<value><avalue>
+		my $v = ~$<avalue><value>;
+		my $b = $<avalue><bvalue>>>.ast.join("") if $<avalue><bvalue>;
+		$v = $v ~ $b if $b;
+		#say "v:", $v;
+		make ~$<aname> => $v;
 	}
 	method aname($/) {
 		make ~$/;
 	}
-	method value($/) {
-		make ~$/;
-	}
-	method avalue($/) {
-		make ~$/;
-	}
+	#method avalue($/) {
+	#	my $b = ~$<bvalue>>>.ast;
+	#	my $c = $<value> ~ $b;
+	#	say "c:", $c, ":";
+	#	make ~$c;
+	#}
 	method bvalue($/) {
-		make ~$/;
-	}
-	method uvalue($/) {
-		make ~$/;
+		my $b = ~$/;
+		$b.trim;
+		make $b;
 	}
 }
 

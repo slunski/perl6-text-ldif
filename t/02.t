@@ -10,7 +10,7 @@ use Text::LDIF::Actions;
 my $txt = slurp "examples/1.ldif";
 #my $txt = slurp "examples/2.ldif";
 
-plan(4);
+plan(5);
 
 my $l = Text::LDIF.new();
 ok $l, 'class OK';
@@ -27,3 +27,8 @@ for @$r -> $e {
 }
 ok $dn, 'dn OK';
 
+my $at = 1;
+for @$r -> $e {
+	$at = 0 if $e<attrs>.elems < 2;
+}
+ok $at, 'attr OK';
