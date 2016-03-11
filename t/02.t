@@ -5,10 +5,8 @@ use Test;
 use Text::LDIF;
 use Text::LDIF::Actions;
 
-#my $txt = slurp @*ARGS[0];
 #my $txt = slurp "../examples/1.ldif";
 my $txt = slurp "examples/1.ldif";
-#my $txt = slurp "examples/2.ldif";
 
 plan(5);
 
@@ -32,3 +30,4 @@ for @$r -> $e {
 	$at = 0 if $e<attrs>.elems < 2;
 }
 ok $at, 'attr OK';
+
