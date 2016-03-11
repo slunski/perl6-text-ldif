@@ -1,7 +1,6 @@
 v6;
 
 use Text::LDIF::Grammar;
-#use Text::LDIF::Actions;
 
 class Text::LDIF {
 
@@ -34,7 +33,6 @@ multi method parsefile( $file, $actions ) {
 #	my $r = Text::LDIF::Grammar.parse( $txt );
 #	return $r;
 #}
-
 
 }
 

@@ -5,7 +5,6 @@ use Test;
 use Text::LDIF;
 use Text::LDIF::Actions;
 
-#my $txt = slurp "../examples/1.ldif";
 my $txt = slurp "examples/1.ldif";
 
 plan(5);
@@ -27,8 +26,7 @@ ok $dn, 'dn OK';
 
 my $at = 1;
 for @$r -> $e {
-	#say $e<attrs>;
-	# < 2 becouse at least one "objectclass" and attribute are needed
+	# < 2 becouse at least "objectClass" and attribute are needed
 	$at = 0 if $e<attrs>.elems < 2;
 }
 ok $at, 'attr OK';

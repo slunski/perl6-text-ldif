@@ -8,10 +8,9 @@ class Text::LDIF::Actions {
 		make {
 			dn => ~$<dn><avalue>,
 			attrs => $<attr>>>.ast
-			}
+		}
 	}
 	method attr($/) {
-		#make ~$<aname> => $<value><avalue>
 		my $v = ~$<avalue><value>;
 		my $b = $<avalue><bvalue>>>.ast.join("") if $<avalue><bvalue>;
 		$v = $v ~ $b if $b;
