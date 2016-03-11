@@ -3,7 +3,7 @@ Text::LDIF is Perl6 module for parsing LDIF files
 API:
 
 method parse( $txt [, Text::LDIF::Actions $actions] );
-method subpars( $txt [, Text::LDIF::Actions $actions] );
+method subparse( $txt [, Text::LDIF::Actions $actions] );
 method parsefile( $fileName [, Text::LDIF::Actions $actions] );
 
 Example of use:
