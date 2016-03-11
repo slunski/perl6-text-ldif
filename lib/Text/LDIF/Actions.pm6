@@ -29,7 +29,6 @@ class Text::LDIF::Actions {
 	#}
 	method bvalue($/) {
 		my $b = ~$/;
-		$b.trim;
 		make $b;
 	}
 }

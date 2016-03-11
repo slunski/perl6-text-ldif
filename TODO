@@ -1,0 +1,5 @@
+- actions for options
+- documentation
+- benchmarking
+- rework to parsing line by line instead of grammar (?)
+

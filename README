@@ -1,10 +1,19 @@
+Text::LDIF is Perl6 module for parsing LDIF files
+
+Text::LDIF API:
+
+method parse( $txt [, Text::LDIF::Actions $actions] );
+method subpars( $txt  [, Text::LDIF::Actions $actions] );
+method parsefile( $fileName, [, Text::LDIF::Actions $actions] );
+
+Example of use from "example/checkLdif.pl6":
+
 v6;
 
 use Text::LDIF;
 use Text::LDIF::Actions;
 
 my $t = slurp @*ARGS[0];
-
 my $l = Text::LDIF.new();
 my $a = Text::LDIF::Actions.new();
 
@@ -17,13 +26,13 @@ if $r {
 		my @a = $e<attrs>;
 		for @a -> $attr {
 			for @$attr -> $p {
-				
 				say "\tname -> ", $p.key, "\n\tvalue -> ", $p.value;
 			}
 		}
 		say "-" x 50;
 	}
-} else {
-	say "Parsing error";
 }
+
+
+License: Perl6 Artistic
 

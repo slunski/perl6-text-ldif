@@ -16,7 +16,7 @@ ok $l, 'class OK';
 my $a = Text::LDIF::Actions.new();
 ok $a, 'actions OK';
 
-my $r = $l.subparse( $txt, $a ).ast;
+my $r = $l.parse( $txt, $a ).ast;
 ok $r, 'parse OK';
 
 my $dn = 1;
@@ -27,6 +27,8 @@ ok $dn, 'dn OK';
 
 my $at = 1;
 for @$r -> $e {
+	#say $e<attrs>;
+	# < 2 becouse at least one "objectclass" and attribute are needed
 	$at = 0 if $e<attrs>.elems < 2;
 }
 ok $at, 'attr OK';
