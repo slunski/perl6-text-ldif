@@ -17,7 +17,7 @@ dn: cn=Barbara J Jensen, dc=example, dc=com
 cn: Barbara J Jensen
 cn: Babs Jensen
 objectClass: person
-sn: Jensen
+sn;en-us: Jensen
 
 # Bjorn's Entry
 dn: cn=Bjorn J Jensen, dc=example, dc=com

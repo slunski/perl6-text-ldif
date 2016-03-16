@@ -5,20 +5,45 @@ class Text::LDIF::Actions {
 		make $<entry>>>.ast;
 	};
 	method entry($/) {
-		make {
-			dn => ~$<dn><avalue>,
-			attrs => $<attr>>>.ast
+		my %a; my %o;
+		my @l = $<attr>>>.ast;
+		for @l -> $b {
+			my ($k, $v, $o) = @$b;
+			%a{$k}.push: $v;
+			%o{$k} = $o if $o;
 		}
+		#say "oh: ", %o.perl if %o;
+		my %e = dn => ~$<dn><dvalue>;
+		%e<attrs> = %a;
+		%e<option> = %o if %o;;
+		#say "e: ", %e.perl;
+		make %e;
 	}
 	method attr($/) {
+		my @o = $<option>>>.ast if $<option>;
+		push @o, ~$<binaryorurl>.ast if $<binaryorurl>;
 		my $v = ~$<avalue><value>;
-		my $b = $<avalue><bvalue>>>.ast.join("") if $<avalue><bvalue>;
-		$v = $v ~ $b if $b;
-		#say "v:", $v;
-		make ~$<aname> => $v;
+		$v = $v ~ $<avalue><bvalue>>>.ast.join("") if $<avalue><bvalue>;
+		my @result = (~$<aname>, $v);
+		push @result, @o if @o;
+		#say "res: ", @result;
+		make @result;
 	}
 	method aname($/) {
 		make ~$/;
+	}
+	method option($/) {
+		make ~$/;
+	}
+	method binaryorurl($/) {
+		my $bu;
+		my $m = ~$/;
+		if $m eq ':' {
+			$bu = 'binary';
+		} else {
+			$bu = 'url';
+		}
+		make ~$bu if $bu;
 	}
 	#method avalue($/) {
 	#	my $b = ~$<bvalue>>>.ast;
@@ -27,8 +52,7 @@ class Text::LDIF::Actions {
 	#	make ~$c;
 	#}
 	method bvalue($/) {
-		my $b = ~$/;
-		make $b;
+		make ~$/;
 	}
 }
 
