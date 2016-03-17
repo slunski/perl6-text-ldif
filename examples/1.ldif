@@ -24,7 +24,7 @@ dn: cn=Bjorn J Jensen, dc=example, dc=com
 cn: Bjorn J Jensen
 cn: Bjorn Jensen
 objectClass: person
-sn: Jensen
+sn;en-us: Jensen
 # Base64 encoded JPEG photo
 jpegPhoto:: /9j/4AAQSkZJRgABAAAAAQABAAD/2wBDABALD
  A4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQ

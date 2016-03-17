@@ -12,11 +12,9 @@ class Text::LDIF::Actions {
 			%a{$k}.push: $v;
 			%o{$k} = $o if $o;
 		}
-		#say "oh: ", %o.perl if %o;
 		my %e = dn => ~$<dn><dvalue>;
 		%e<attrs> = %a;
 		%e<option> = %o if %o;;
-		#say "e: ", %e.perl;
 		make %e;
 	}
 	method attr($/) {
@@ -26,7 +24,6 @@ class Text::LDIF::Actions {
 		$v = $v ~ $<avalue><bvalue>>>.ast.join("") if $<avalue><bvalue>;
 		my @result = (~$<aname>, $v);
 		push @result, @o if @o;
-		#say "res: ", @result;
 		make @result;
 	}
 	method aname($/) {

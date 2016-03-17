@@ -1,5 +1,4 @@
-- actions for options
+- make options in entry per attribute not per attr type 
 - documentation
-- benchmarking
-- rework to parsing line by line instead of grammar (?)
+- LDIFv1 support (?)
 

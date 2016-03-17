@@ -15,11 +15,15 @@ if $r {
 	for @$r -> $e {
 		say "dn -> ", $e<dn>;
 		my @a = $e<attrs>;
-		#say "ca: ", @a.perl;
+		my %o = $e<option> if $e<option>;
 		for @a -> $attr {
 			for @$attr -> $p {
-				
 				say "\tname -> ", $p.key, "\n\tvalue -> ", $p.value;
+			}
+		}
+		if %o {
+			for %o.kv -> $k,$v {
+				say "\toption -> ", $k, " -> ", $v;
 			}
 		}
 		say "-" x 50;
