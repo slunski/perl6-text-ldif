@@ -8,7 +8,9 @@ my $t = slurp @*ARGS[0];
 my $l = Text::LDIF.new();
 my $a = Text::LDIF::Actions.new();
 
-my $r = $l.subparse( $t, $a ).ast;
+my $r = $l.subparse( $t, $a );
+#my $r = $l.subparse( $t, $a );
+#my $r = $l.subparse( $t );
 
 if $r {
 	#say $r.perl;

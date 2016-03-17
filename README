@@ -2,35 +2,43 @@ Text::LDIF is Perl6 module for parsing LDIF files
 
 API:
 
+All methods return list of hashes of LDIF entries data.
+
 method parse( $txt [, Text::LDIF::Actions $actions] );
 method subparse( $txt [, Text::LDIF::Actions $actions] );
 method parsefile( $fileName [, Text::LDIF::Actions $actions] );
 
 Example of use:
 
-v6;
-
 use Text::LDIF;
 use Text::LDIF::Actions;
 
 my $t = slurp @*ARGS[0];
+
 my $l = Text::LDIF.new();
 my $a = Text::LDIF::Actions.new();
 
-my $r = $l.parse( $t, $a ).ast;
+my $r = $l.parse( $t, $a );
 
 if $r {
 	for @$r -> $e {
 		say "dn -> ", $e<dn>;
-
 		my @a = $e<attrs>;
+		my %o = $e<option> if $e<option>;
 		for @a -> $attr {
 			for @$attr -> $p {
 				say "\tname -> ", $p.key, "\n\tvalue -> ", $p.value;
 			}
 		}
-		say "-" x 50;
+		if %o {
+			for %o.kv -> $k,$v {
+				say "\toption -> ", $k, " -> ", $v;
+			}
+		}
+		say "-" x 40;
 	}
+	} else {
+		say "Parsing error";
 }
 
 

@@ -12,6 +12,7 @@ my $l = Text::LDIF.new();
 ok $l, 'class OK';
 
 my $r = $l.parse( $txt );
+say $r;
 
 ok $r, 'parse OK';
 
