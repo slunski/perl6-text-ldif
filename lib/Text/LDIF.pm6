@@ -1,7 +1,9 @@
 v6;
 
 use Text::LDIF::Grammar;
+
 class Text::LDIF {
+
 multi method parse( $txt ) {
 	my $r = Text::LDIF::Grammar.parse( $txt );
 	return $r;
@@ -20,13 +22,14 @@ multi method subparse( $txt, $actions ) {
 }
 multi method parsefile( $file ) {
 	my $r = Text::LDIF::Grammar.parsefile( $file );
-	return $r.ast;
+	#return $r.ast;
+	return $r;
 }
 multi method parsefile( $file, $actions ) {
 	my $r = Text::LDIF::Grammar.parsefile( $file, :actions( $actions ) );
-	return $r.ast;
+	#return $r.ast;
+	return $r;
 }
-
 #method debug( $txt ) {
 #	use Grammar::Debugger;
 #	my $r = Text::LDIF::Grammar.parse( $txt );

@@ -1,4 +1,4 @@
-- make options in entry per attribute not per attr type 
-- documentation
+- make options in entry per attribute not per attr type
 - LDIFv1 support (?)
+- method to modify grammar to allow match empty DN(s) (?)
 

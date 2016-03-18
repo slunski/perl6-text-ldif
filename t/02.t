@@ -15,7 +15,7 @@ ok $l, 'class OK';
 my $a = Text::LDIF::Actions.new();
 ok $a, 'actions OK';
 
-my $r = $l.parse( $txt, $a ).ast;
+my $r = $l.parse( $txt, $a );
 ok $r, 'parse OK';
 
 my $dn = 1;
