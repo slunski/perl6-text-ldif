@@ -5,7 +5,7 @@ use Test;
 use Text::LDIF;
 use Text::LDIF::Actions;
 
-my $file = "/home/sylwek/src/perl/6/text-ldif/examples/1.ldif";
+my $file = "examples/1.ldif";
 #my $t = slurp $file;
 plan(3);
 
