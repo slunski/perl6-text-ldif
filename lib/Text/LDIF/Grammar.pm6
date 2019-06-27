@@ -1,4 +1,4 @@
-v6;
+use v6;
 
 grammar Text::LDIF::Grammar {
 	token TOP { [ \n* <comment>* \n* <entry> \n? <comment>* \n? ]+ };
@@ -15,4 +15,3 @@ grammar Text::LDIF::Grammar {
 	token value { \N* };
 	token bvalue { \N+ };
 }
-

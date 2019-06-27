@@ -1,4 +1,4 @@
-v6;
+use v6;
 
 class Text::LDIF::Actions {
 	method TOP($/) {
@@ -42,12 +42,6 @@ class Text::LDIF::Actions {
 		}
 		make ~$bu if $bu;
 	}
-	#method avalue($/) {
-	#	my $b = ~$<bvalue>>>.ast;
-	#	my $c = $<value> ~ $b;
-	#	say "c:", $c, ":";
-	#	make ~$c;
-	#}
 	method bvalue($/) {
 		make ~$/;
 	}
