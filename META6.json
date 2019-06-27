@@ -1,18 +1,20 @@
 {
-	"name" : "Text::LDIF",
-	"description" : "Pure Perl6 LDIF file parser",
-	"version" : "0.1",
-	"author" : "Sylwester Lunski",
-	"license" : "http://www.perlfoundation.org/artistic_license_2_0",
-	"perl" : "6.c",
-	"provides" : {
-		"Text::LDIF" : "lib/Text/LDIF.pm6",
-		"Text::LDIF::Grammar" : "lib/Text/LDIF/Grammar.pm6",
-		"Text::LDIF::Actions" : "lib/Text/LDIF/Actions.pm6"
-	},
-	"depends" : [ ],
-	"test-depends" : [ "Test" ],
-	"repo-type" : "git",
-	"source-url" : "git://github.com/slunski/perl6-text-ldif.git"
+  "name": "Text::LDIF",
+  "description": "Pure Perl6 LDIF file parser",
+  "version": "0.1",
+  "perl": "6.c",
+  "auth": "github:slunski",
+  "depends": [],
+  "test-depends": [
+    "Test"
+  ],
+  "provides": {
+    "Text::LDIF": "lib/Text/LDIF.pm6",
+    "Text::LDIF::Actions": "lib/Text/LDIF/Actions.pm6",
+    "Text::LDIF::Grammar": "lib/Text/LDIF/Grammar.pm6"
+  },
+  "license": "Artistic-2.0",
+  "source-url": "git://github.com/slunski/perl6-text-ldif.git",
+  "author": "Sylwester Lunski",
+  "repo-type": "git"
 }
-
