@@ -1,15 +1,12 @@
-Text::LDIF is Perl6 module for parsing LDIF files
+### Text::LDIF
 
-Status:
+Text::LDIF is Perl6 module for parsing LDIF files.
 
-Grammar parses all example .ldif files from OpenLDAP tests except
-one with empty DN.
-
-
-API:
+### API
 
 All parse methods return list entries as hashes. Hashes look like:
 
+```perl6
 %h = {
 	dn => "ou=Organization Unit,o=Organization",	# entry DN
 	attrs => {										# attributes
@@ -21,14 +18,19 @@ All parse methods return list entries as hashes. Hashes look like:
 		attry => ...
 	}
 }
+```
 
+Available methods are:
 
+```perl6
 method parse( $txt [, Text::LDIF::Actions $actions] );
 method subparse( $txt [, Text::LDIF::Actions $actions] );
 method parsefile( $fileName [, Text::LDIF::Actions $actions] );
+```
 
 Example of use:
 
+```
 use Text::LDIF;
 use Text::LDIF::Actions;
 
@@ -59,7 +61,7 @@ if $r {
 	} else {
 		say "Parsing error";
 }
-
+```
 
 BUGS:
 
@@ -67,7 +69,3 @@ Grammar for basic attributes values use just \N* pattern so some
 invalid values (eg. binary numbers with invalid format) are accepted.
 If database don't allow such values they will be rejected during
 import.
-
-
-License: Artistic
-
