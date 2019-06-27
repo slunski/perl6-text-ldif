@@ -21,6 +21,6 @@ class Text::LDIF {
         Text::LDIF::Grammar.parsefile($file);
     }
     multi method parsefile($file, $actions) {
-        Text::LDIF::Grammar.parsefile($file, :$actions);
+        Text::LDIF::Grammar.parsefile($file, :$actions).ast;
     }
 }
