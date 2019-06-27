@@ -30,7 +30,7 @@ method parsefile( $fileName [, Text::LDIF::Actions $actions] );
 
 Example of use:
 
-```
+```perl6
 use Text::LDIF;
 use Text::LDIF::Actions;
 
