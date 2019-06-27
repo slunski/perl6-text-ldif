@@ -1,6 +1,6 @@
 ### Text::LDIF
 
-Text::LDIF is Perl6 module for parsing LDIF files.
+Text::LDIF is a Perl 6 module for parsing LDIF files according to RFC 2849.
 
 ### API
 
