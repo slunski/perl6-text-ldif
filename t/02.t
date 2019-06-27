@@ -1,4 +1,4 @@
-v6;
+use v6;
 
 use Test;
 
@@ -6,8 +6,6 @@ use Text::LDIF;
 use Text::LDIF::Actions;
 
 my $txt = slurp "examples/1.ldif";
-
-plan(5);
 
 my $l = Text::LDIF.new();
 ok $l, 'class OK';
@@ -31,3 +29,4 @@ for @$r -> $e {
 }
 ok $at, 'attr OK';
 
+done-testing;
