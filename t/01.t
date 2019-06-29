@@ -13,7 +13,7 @@ sub check-parses(Str $fn, &check) {
 
 check-parses '1', -> $r {
     is $r<version>, 1, "Version is correct";
-    my $recs = $r<records>;
+    my $recs = $r<entries>;
     is $recs.elems, 2, "Two entries were read";
 
     is $recs[0]<dn>, 'cn=Barbara Jensen, ou=Product Development, dc=airius, dc=com', "DN is correct for first entry";
@@ -28,17 +28,17 @@ check-parses '1', -> $r {
 }
 
 check-parses '2', -> $r {
-    is $r<records>[0]<attrs><description>, 'Babs is a big sailing fan, and travels extensively in search of perfect sailing conditions.',
+    is $r<entries>[0]<attrs><description>, 'Babs is a big sailing fan, and travels extensively in search of perfect sailing conditions.',
             'folded description was concatenated';
 }
 
 check-parses '3', -> $r {
-     is $r<records>[0]<attrs><description>, Pair.new('base64', 'V2hhdCBhIGNhcmVmdWwgcmVhZGVyIHlvdSBhcmUhICBUaGlzIHZhbHVlIGlzIGJhc2UtNjQtZW5jb2RlZCBiZWNhdXNlIGl0IGhhcyBhIGNvbnRyb2wgY2hhcmFjdGVyIGluIGl0IChhIENSKS4NICBCeSB0aGUgd2F5LCB5b3Ugc2hvdWxkIHJlYWxseSBnZXQgb3V0IG1vcmUu'),
+     is $r<entries>[0]<attrs><description>, Pair.new('base64', 'V2hhdCBhIGNhcmVmdWwgcmVhZGVyIHlvdSBhcmUhICBUaGlzIHZhbHVlIGlzIGJhc2UtNjQtZW5jb2RlZCBiZWNhdXNlIGl0IGhhcyBhIGNvbnRyb2wgY2hhcmFjdGVyIGluIGl0IChhIENSKS4NICBCeSB0aGUgd2F5LCB5b3Ugc2hvdWxkIHJlYWxseSBnZXQgb3V0IG1vcmUu'),
             'base64 value is read';
 }
 
 check-parses '4', -> $r {
-    my $ou = $r<records>[0]<attrs><ou>;
+    my $ou = $r<entries>[0]<attrs><ou>;
     is-deeply $ou{''}, Pair.new('base64', '5Za25qWt6YOo'), "Option-less attribute";
     is-deeply $ou<lang-en>, 'Sales', "Simple option attribute";
     is-deeply $ou<lang-ja>, Pair.new('base64', '5Za25qWt6YOo'), 'BASE64 option attribute';
@@ -46,7 +46,7 @@ check-parses '4', -> $r {
 }
 
 check-parses '5', -> $r {
-    is-deeply $r<records>[0]<attrs><jpegphoto>, Pair.new('file', 'file://foo.jpg'), 'External file url';
+    is-deeply $r<entries>[0]<attrs><jpegphoto>, Pair.new('file', 'file://foo.jpg'), 'External file url';
 }
 
 check-parses '6', -> $r {

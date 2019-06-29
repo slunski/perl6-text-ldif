@@ -7,7 +7,7 @@ class Text::LDIF::Actions {
 		with $<ldif-changes> {
 			%attrs<changes> = .made;
 		} orwith $<ldif-content> {
-			%attrs<records> = .made;
+			%attrs<entries> = .made;
 		}
 		make %attrs;
 	};
@@ -81,7 +81,7 @@ class Text::LDIF::Actions {
 	method control($/) {
 		my %attrs = ldap-oid => ~$<ldap-oid>,
 				criticality => $<value> eq 'true',
-				spec => $<value-spec>.made;
+				value => $<value-spec>.made;
 		make %attrs;
 	}
 
