@@ -1,39 +1,11 @@
-v6;
+use v6;
 
 use Text::LDIF::Grammar;
+use Text::LDIF::Actions;
 
 class Text::LDIF {
-
-multi method parse( $txt ) {
-	my $r = Text::LDIF::Grammar.parse( $txt );
-	return $r;
+    method parse(Str $txt) {
+        my $text = $txt.subst(/"\n "/, '', :g).subst(/'#' .*? "\n"/, "", :g);
+        Text::LDIF::Grammar.parse($text, actions => Text::LDIF::Actions).ast;
+    }
 }
-multi method parse( $txt, $actions ) {
-	my $r = Text::LDIF::Grammar.parse( $txt, :actions( $actions ) );
-	return $r.ast;
-}
-multi method subparse( $txt ) {
-	my $r = Text::LDIF::Grammar.subparse( $txt );
-	return $r.ast;
-}
-multi method subparse( $txt, $actions ) {
-	my $r = Text::LDIF::Grammar.subparse( $txt, :actions( $actions ) );
-	return $r.ast;
-}
-multi method parsefile( $file ) {
-	my $r = Text::LDIF::Grammar.parsefile( $file );
-	#return $r.ast;
-	return $r;
-}
-multi method parsefile( $file, $actions ) {
-	my $r = Text::LDIF::Grammar.parsefile( $file, :actions( $actions ) );
-	#return $r.ast;
-	return $r;
-}
-#method debug( $txt ) {
-#	use Grammar::Debugger;
-#	my $r = Text::LDIF::Grammar.parse( $txt );
-#	return $r.ast;
-#}
-}
-

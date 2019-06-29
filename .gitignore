@@ -1,0 +1,5 @@
+# precomp
+.precomp/
+# Comma stuff
+.idea/
+*.iml
