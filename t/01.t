@@ -19,8 +19,8 @@ check-parses '1', -> $r {
     is $recs[0]<dn>, 'cn=Barbara Jensen, ou=Product Development, dc=airius, dc=com', "DN is correct for first entry";
     my $rec-attrs = $recs[0]<attrs>;
     is $rec-attrs<objectclass>, <top person organizationalPerson>, "objectclass multi-values are concatenated";
-    is $rec-attrs<sn>, <Jensen>, "sn is correct";
-    is $rec-attrs<telephonenumber>, ('+1 408 555 1212'), 'phonenumber is read ok';
+    is $rec-attrs<sn>, 'Jensen', "sn is correct";
+    is $rec-attrs<telephonenumber>, '+1 408 555 1212', 'phonenumber is read ok';
 
     is $recs[1]<dn>, 'cn=Bjorn Jensen, ou=Accounting, dc=airius, dc=com', 'DN is correct for second entry';
     $rec-attrs = $recs[1]<attrs>;
@@ -74,9 +74,9 @@ check-parses '6', -> $r {
 
     $change = $changes[4];
     is $change<change>.key, 'modify';
-    is $change<change><modify>[0], Pair.new('add', Pair.new('postaladdress', Pair.new('postaladdress', '123 Anystreet $ Sunnyvale, CA $ 94086')));
+    is $change<change><modify>[0], Pair.new('add', Pair.new('postaladdress', '123 Anystreet $ Sunnyvale, CA $ 94086'));
     is $change<change><modify>[1], Pair.new('delete', 'description');
-    is $change<change><modify>[2], Pair.new('replace', Pair.new('telephonenumber', Pair.new('telephonenumber', ('+1 408 555 1234', '+1 408 555 5678'))));
+    is $change<change><modify>[2], Pair.new('replace', Pair.new('telephonenumber', ('+1 408 555 1234', '+1 408 555 5678')));
 
     $change = $changes[5];
     is $change<change>.key, 'modify';

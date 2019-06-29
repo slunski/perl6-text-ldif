@@ -117,7 +117,7 @@ class Text::LDIF::Actions {
 		my $vals = $<attrval-spec>>>.made.classify(*.key, as => *.value);
 		if $vals {
 			$vals = self!unwrap-opts($vals);
-			make Pair.new(~$<op>, $attribute => $vals);
+			make Pair.new(~$<op>, $vals);
 		} else {
 			make Pair.new(~$<op>, $attribute);
 		}
