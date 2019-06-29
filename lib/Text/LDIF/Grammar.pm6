@@ -34,7 +34,7 @@ grammar Text::LDIF::Grammar {
 	regex AttributeType { <ldap-oid> | [<[a..zA..Z]> <attr-type-chars>*] }
 
 	regex options { <option>+ % ';' }
-	regex option { <[0..9 a..z A..Z -]>+ }
+	regex option { <[0..9a..zA..Z-]>+ }
 
 	regex changerecord { 'changetype:' <FILL> [ <change-add> || <change-delete> || <change-modify> || <change-moddn> ] }
 	regex change-add { 'add' <SEP> <attrval-spec>+ }
