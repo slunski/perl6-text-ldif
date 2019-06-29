@@ -27,38 +27,38 @@ grammar Text::LDIF::Grammar {
 	                       | [ ':' <FILL> <BASE64-STRING>? ]
 		                   | [ '<' <FILL> <url> ] ] }
 
-	regex url { 'file://' (<-[\n]>+) } # FIXME a lazy hack
+	token url { 'file://' (<-[\n]>+) } # FIXME a lazy hack
 
-	regex AttributeDescription { <!before dn:> <!before control:> <AttributeType> [';' <options>]? }
+	token AttributeDescription { <!before dn:> <!before control:> <AttributeType> [';' <options>]? }
 
-	regex AttributeType { <ldap-oid> | [<[a..zA..Z]> <attr-type-chars>*] }
+	token AttributeType { <ldap-oid> | [<[a..zA..Z]> <attr-type-chars>*] }
 
-	regex options { <option>+ % ';' }
-	regex option { <[0..9a..zA..Z-]>+ }
+	token options { <option>+ % ';' }
+	token option { <[0..9a..zA..Z-]>+ }
 
-	regex changerecord { 'changetype:' <FILL> [ <change-add> || <change-delete> || <change-modify> || <change-moddn> ] }
-	regex change-add { 'add' <SEP> <attrval-spec>+ }
-	regex change-delete { 'delete' <SEP> }
-	regex change-moddn {
+	token changerecord { 'changetype:' <FILL> [ <change-add> || <change-delete> || <change-modify> || <change-moddn> ] }
+	token change-add { 'add' <SEP> <attrval-spec>+ }
+	token change-delete { 'delete' <SEP> }
+	token change-moddn {
 		('modrdn' | 'moddn') <SEP>
 		'newrdn:' [ <FILL> <rdn> | ':' <FILL> <base64-rdn> ] <SEP>
 		'deleteoldrdn:' <FILL> $<del-on-rdn> = ['0' || '1'] <SEP>
 		('newsuperior:' [ <FILL> <distinguishedName> || ':' <FILL> <base64-distinguishedName> ] <SEP> )?
 	}
 
-	regex change-modify { 'modify' <SEP> <mod-spec>* }
-	regex mod-spec { $<op> = [ 'add' | 'delete' | 'replace' ] ':' <FILL> <AttributeDescription> <SEP> <attrval-spec>* '-' <SEP> }
+	token change-modify { 'modify' <SEP> <mod-spec>* }
+	token mod-spec { $<op> = [ 'add' | 'delete' | 'replace' ] ':' <FILL> <AttributeDescription> <SEP> <attrval-spec>* '-' <SEP> }
 
-	regex attr-type-chars { <[a..zA..Z0..9-]> }
+	token attr-type-chars { <[a..zA..Z0..9-]> }
 
-	regex SAFE-STRING { (<SAFE-INIT-CHAR> <SAFE-CHAR>*)? }
+	token SAFE-STRING { (<SAFE-INIT-CHAR> <SAFE-CHAR>*)? }
 
-	regex SAFE-CHAR { <[ \x01..\x09 \x0B..\x0C \x0E..\x7F ]> }
-	regex SAFE-INIT-CHAR { <[ \x01..\x09 \x0B..\x0C \x0E..\x1F \x21..\x39 \x3B \x3D..\x7F ]> }
+	token SAFE-CHAR { <[ \x01..\x09 \x0B..\x0C \x0E..\x7F ]> }
+	token SAFE-INIT-CHAR { <[ \x01..\x09 \x0B..\x0C \x0E..\x1F \x21..\x39 \x3B \x3D..\x7F ]> }
 
-	regex BASE64-UTF8-STRING { <BASE64-STRING> }
-	regex BASE64-STRING { <[\x2B \x2F \x30..\x39 \x3D \x41..\x5A \x61..\x7A]>* }
+	token BASE64-UTF8-STRING { <BASE64-STRING> }
+	token BASE64-STRING { <[\x2B \x2F \x30..\x39 \x3D \x41..\x5A \x61..\x7A]>* }
 
-	regex FILL { ' '* }
-	regex SEP { "\r\n" || "\n" }
+	token FILL { ' '* }
+	token SEP { "\r\n" || "\n" }
 }
