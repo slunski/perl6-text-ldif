@@ -4,62 +4,116 @@ Text::LDIF is a Perl 6 module for parsing LDIF files according to RFC 2849.
 
 ### API
 
-All parse methods return list entries as hashes. Hashes look like:
+For the end-user, `Text::LDIF` class is available to use.
+It has `parse` method that accepts a `Str` that contains text of LDIF file and returns a structure that describes
+the file.
 
-```perl6
-%h = {
-	dn => "ou=Organization Unit,o=Organization",	# entry DN
-	attrs => {										# attributes
-		attr1 => ["attr1 value1", "attr1 value2"],
-		attr2 => ...
-	},
-	option => {										# options from some attrs
-		attrx => [ "attrx option1", "attrx option2" ],
-		attry => ...
-	}
+#### Output structure
+
+LDIF can contain either a description of a number of LDAP entries
+or a set of changes made to directory entries. In case of LDAP entries
+description, the parsing result looks this way:
+
+```
+{
+    version => 1, # exact number is parsed from file
+    entries => [
+        {
+            dn => $dn-string,
+            attrs => {
+                # For a simple value, just string
+                attr1 => 'foo',
+                # For an attribute with many values, a list
+                attr2 => ['foo', 'baz', 'bar'],
+                # For base64 string a Pair
+                attr3 => base64 => 'V2hhdCBh...',
+                attr-with-opts => { # OPTIONS
+                    '' => 'value-of-just-attr-with-opts',
+                    lang-ja => 'value of attr-with-opts:lang-ja',
+                    lang-ja,phonetic => 'value of attr-with-opts:lang-ja:phonetic',
+                },
+                fileattr => file => 'file://foo.jpg', # eternal file url
+                ...
+            }
+        },
+        ...
+    ]
 }
 ```
 
-Available methods are:
+A parsing result of modifications looks this way:
 
-```perl6
-method parse( $txt [, Text::LDIF::Actions $actions] );
-method subparse( $txt [, Text::LDIF::Actions $actions] );
-method parsefile( $fileName [, Text::LDIF::Actions $actions] );
+```
+{
+    version => 1,
+    changes => [
+        { # ADD
+            dn => $dn-string,
+            change => add => {
+                attr1 => ...
+            },
+            controls => []
+        },
+        { # DELETE
+            dn => $dn-string,
+            change => 'delete',
+            controls => []
+        },
+        { # MODDN
+            dn => $dn-string,
+            change => moddn => {
+                delete-on-rdn => True, # Bool value
+                newrdn => 'foo=baz',
+                superior => Any # if not specified
+            }
+            controls => []
+        },
+        { # MODIFY
+            dn => $dn-string,
+            change => modify => [
+               add => attr1 => 'attr1-value',
+               delete => attr2,
+               replace => attr3 => ['old-value', 'new-value'],
+               ...
+            ],
+            controls => [ # CONTROLS
+                {
+                    ldap-oid => '1.2.840...',
+                    criticality => True, # Bool value
+                    value => 'new-foo-value'
+                },
+                ...
+            ]
+        },
+        ...
+    ]
+}
 ```
 
 Example of use:
 
 ```perl6
 use Text::LDIF;
-use Text::LDIF::Actions;
 
-my $t = slurp @*ARGS[0];
+my $ldif-content = slurp @*ARGS[0];
 
-my $l = Text::LDIF.new();
-my $a = Text::LDIF::Actions.new();
+my $ldif = Text::LDIF.new;
 
-my $r = $l.parse( $t, $a );
+my $result = $ldif.parse($ldif-content);
 
-if $r {
-	for @$r -> $e {
-		say "dn -> ", $e<dn>;
-		my @a = $e<attrs>;
-		my %o = $e<option> if $e<option>;
-		for @a -> $attr {
-			for @$attr -> $p {
-				say "\tname -> ", $p.key, "\n\tvalue -> ", $p.value;
-			}
-		}
-		if %o {
-			for %o.kv -> $k,$v {
-				say "\toption -> ", $k, " -> ", $v;
-			}
-		}
+if $result {
+	for $result<entries><> -> $entry {
+        say "dn -> ", $entry<dn>;
+        my %attrs = $entry<attrs>;
+        for %attrs.kv -> $attr, $value {
+            say "\t$attr ->\t$_" for @$value;
+            # some further processing for cases of attributes with options,
+            # base64, file urls, etc
+        }
 		say "-" x 40;
 	}
-	} else {
-		say "Parsing error";
+} else {
+    say "Parsing error";
 }
 ```
 
