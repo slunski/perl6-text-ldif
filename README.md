@@ -116,10 +116,3 @@ if $result {
     say "Parsing error";
 }
 ```
-
-BUGS:
-
-Grammar for basic attributes values use just \N* pattern so some
-invalid values (eg. binary numbers with invalid format) are accepted.
-If database don't allow such values they will be rejected during
-import.
