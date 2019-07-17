@@ -41,7 +41,7 @@ class Text::LDIF::Actions {
 		with $<distinguishedName> {
 			make .Str;
 		} orwith $<base64-distinguishedName> {
-			make .Str;
+			make Pair.new('base64', .Str);
 		}
 	}
 
