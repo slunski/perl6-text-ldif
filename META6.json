@@ -1,7 +1,7 @@
 {
   "name": "Text::LDIF",
   "description": "Pure Perl6 LDIF file parser",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "perl": "6.c",
   "auth": "github:slunski",
   "depends": [],

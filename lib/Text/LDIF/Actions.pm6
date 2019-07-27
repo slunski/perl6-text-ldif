@@ -2,7 +2,7 @@ use v6;
 
 class Text::LDIF::Actions {
 	method TOP($/) {
-		my %attrs = version => ~$<version-spec>[0];
+		my %attrs = version => $<version-spec>[0].Int;
 
 		with $<ldif-changes> {
 			%attrs<changes> = .made;
@@ -28,11 +28,15 @@ class Text::LDIF::Actions {
 				%attrs{$k} = $v[0].value;
 			} else {
 				if $v.map(*.key eq '').all {
-					%attrs{$k} = $v.map(*.value);
+					%attrs{$k} = $v.map(*.value).List;
 				} else {
 					%attrs{$k} = $v.Hash;
 				}
 			}
+		}
+		if %attrs.elems == 1 {
+			# We have only single key, so return a single Pair
+			return %attrs.keys[0] => %attrs{%attrs.keys[0]};
 		}
 		%attrs;
 	}
