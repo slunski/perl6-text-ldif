@@ -116,3 +116,8 @@ if $result {
     say "Parsing error";
 }
 ```
+
+### Authors
+
+* The original module was developed by @slunski
+* Current fork was started by @Altai-man who introduced some compatibility breaking changes

@@ -3,6 +3,10 @@
   "description": "Pure Perl6 LDIF file parser",
   "version": "1.0.2",
   "perl": "6.c",
+  "authors": [
+    "Sylwester Lunski",
+    "Alexander Kiryuhin"
+  ],
   "auth": "github:slunski",
   "depends": [],
   "test-depends": [
@@ -15,6 +19,5 @@
   },
   "license": "Artistic-2.0",
   "source-url": "git://github.com/slunski/perl6-text-ldif.git",
-  "author": "Sylwester Lunski",
   "repo-type": "git"
 }
