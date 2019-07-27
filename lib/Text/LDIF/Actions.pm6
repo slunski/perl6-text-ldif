@@ -124,9 +124,19 @@ class Text::LDIF::Actions {
 	}
 
 	method change-moddn($/) {
-		my $newrdn = ~($<rdn> // $<base64-rdn>);
+		my $newrdn;
+		with $<rdn> {
+			$newrdn = ~$_;
+		} orwith $<base64-rdn> {
+			$newrdn = base64 => ~$_;
+		}
 		my $delete-on-rdn = $<del-on-rdn> eq '1';
-		my $newsuperior = $<distinguishedName> // $<base64-distinguishedName>;
+		my $newsuperior;
+		with $<distinguishedName> {
+			$newsuperior = ~$_;
+		} orwith $<base64-distinguishedName> {
+			$newsuperior = base64 => ~$_;
+		}
 		make Pair.new('moddn', %(:$newrdn, :$delete-on-rdn, :$newsuperior));
 	}
 }
