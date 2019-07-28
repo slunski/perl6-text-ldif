@@ -38,12 +38,12 @@ check-parses '3', -> $r {
 }
 
 check-parses '4', -> $r {
-    my $ou = $r<entries>[0]<attrs><ou>;
-    is-deeply $r<entries>[0]<dn>, Pair.new('base64', 'b3U95Za25qWt6YOoLG89QWlyaXVz'), 'Base64 is expressed as Pair';
-    is-deeply $ou{''}, Pair.new('base64', '5Za25qWt6YOo'), "Option-less attribute";
-    is-deeply $ou<lang-en>, 'Sales', "Simple option attribute";
-    is-deeply $ou<lang-ja>, Pair.new('base64', '5Za25qWt6YOo'), 'BASE64 option attribute';
-    is-deeply $ou<lang-ja,phonetic>, Pair.new('base64', '44GI44GE44GO44KH44GG44G2'), 'Multi-option attribute';
+    my $entry = $r<entries>[0];
+    is-deeply $entry<dn>, Pair.new('base64', 'b3U95Za25qWt6YOoLG89QWlyaXVz'), 'Base64 is expressed as Pair';
+    is-deeply $entry<attrs><ou>, Pair.new('base64', '5Za25qWt6YOo'), "Option-less attribute";
+    is-deeply $entry<attrs><ou;lang-en>, 'Sales', "Simple option attribute";
+    is-deeply $entry<attrs><ou;lang-ja>, Pair.new('base64', '5Za25qWt6YOo'), 'BASE64 option attribute';
+    is-deeply $entry<attrs><ou;lang-ja;phonetic>, Pair.new('base64', '44GI44GE44GO44KH44GG44G2'), 'Multi-option attribute';
 }
 
 check-parses '5', -> $r {

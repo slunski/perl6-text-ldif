@@ -25,13 +25,9 @@ class Text::LDIF::Actions {
 		my %attrs;
 		for $attributes.kv -> $k, $v {
 			if $v.elems == 1 {
-				%attrs{$k} = $v[0].value;
+				%attrs{$k} = $v[0];
 			} else {
-				if $v.map(*.key eq '').all {
-					%attrs{$k} = $v.map(*.value).List;
-				} else {
-					%attrs{$k} = $v.Hash;
-				}
+				%attrs{$k} = $v.List;
 			}
 		}
 		if %attrs.elems == 1 {
@@ -51,14 +47,11 @@ class Text::LDIF::Actions {
 
 	method attrval-spec($/) {
 		with $<AttributeDescription> -> $attr {
-			my @options;
-			with $attr<options> {
-				@options.push($_.Str) for $_<option>;
-			}
-			my $options-key = @options.join(',');
+			my $attribute = $attr<AttributeType>.Str;
+			# If attribute has options, add those too
+			$attribute ~= ';' ~ $_.Str with $attr<options>;
 			my $value = $<value-spec>.made;
-			my $optioned-value = Pair.new($options-key // '', $value);
-			make Pair.new(~$attr<AttributeType>, $optioned-value);
+			make Pair.new($attribute, $value);
 		}
 	}
 
@@ -110,13 +103,9 @@ class Text::LDIF::Actions {
 	method mod-spec($/) {
 		my $attribute;
 		with $<AttributeDescription> -> $attr {
-			my @options;
-			with $attr<options> {
-				@options.push($_.Str) for $_<option>;
-			}
-			my $options-key = @options.join(',');
-			my $attribute-str = ~$attr<AttributeType>;
-			$attribute = $options-key ?? Pair.new($attribute-str, $options-key) !! $attribute-str;
+            $attribute = $attr<AttributeType>.Str;
+			# if attribute has options, add them too
+            $attribute ~= ';' ~ $_.Str with $attr<options>;
 		}
 		my $vals = $<attrval-spec>>>.made.classify(*.key, as => *.value);
 		if $vals {
