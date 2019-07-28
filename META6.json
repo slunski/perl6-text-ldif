@@ -18,6 +18,6 @@
     "Text::LDIF::Grammar": "lib/Text/LDIF/Grammar.pm6"
   },
   "license": "Artistic-2.0",
-  "source-url": "git://github.com/slunski/perl6-text-ldif.git",
+  "source-url": "git://github.com/Altai-man/perl6-text-ldif.git",
   "repo-type": "git"
 }
